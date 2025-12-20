@@ -1,3 +1,6 @@
 {
-  "cSpell.words": ["hugeicons"]
+  "cSpell.words": [
+    "hugeicons"
+  ],
+  "editor.formatOnSave": true
 }
