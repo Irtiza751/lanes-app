@@ -1,8 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { ComponentExample } from '@/components/component-example'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { useEffect } from 'react'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
-  return <ComponentExample />
+  const router = useRouter()
+
+  useEffect(() => {
+    router.navigate({ to: '/projects' })
+  }, [])
+
+  return null
 }

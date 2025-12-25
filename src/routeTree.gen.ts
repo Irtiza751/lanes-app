@@ -9,19 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProjectsRouteRouteImport } from './routes/projects/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsProjectKeyRouteImport } from './routes/projects/$projectKey'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 
+const ProjectsRouteRoute = ProjectsRouteRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsProjectKeyRoute = ProjectsProjectKeyRouteImport.update({
-  id: '/projects/$projectKey',
-  path: '/projects/$projectKey',
-  getParentRoute: () => rootRouteImport,
+  id: '/$projectKey',
+  path: '/$projectKey',
+  getParentRoute: () => ProjectsRouteRoute,
 } as any)
 const AuthSignInRoute = AuthSignInRouteImport.update({
   id: '/auth/sign-in',
@@ -31,36 +37,46 @@ const AuthSignInRoute = AuthSignInRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/projects': typeof ProjectsRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/projects': typeof ProjectsRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/projects': typeof ProjectsRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/projects/$projectKey': typeof ProjectsProjectKeyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/sign-in' | '/projects/$projectKey'
+  fullPaths: '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/sign-in' | '/projects/$projectKey'
-  id: '__root__' | '/' | '/auth/sign-in' | '/projects/$projectKey'
+  to: '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
+  id: '__root__' | '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProjectsRouteRoute: typeof ProjectsRouteRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
-  ProjectsProjectKeyRoute: typeof ProjectsProjectKeyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -70,10 +86,10 @@ declare module '@tanstack/react-router' {
     }
     '/projects/$projectKey': {
       id: '/projects/$projectKey'
-      path: '/projects/$projectKey'
+      path: '/$projectKey'
       fullPath: '/projects/$projectKey'
       preLoaderRoute: typeof ProjectsProjectKeyRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ProjectsRouteRoute
     }
     '/auth/sign-in': {
       id: '/auth/sign-in'
@@ -85,10 +101,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ProjectsRouteRouteChildren {
+  ProjectsProjectKeyRoute: typeof ProjectsProjectKeyRoute
+}
+
+const ProjectsRouteRouteChildren: ProjectsRouteRouteChildren = {
+  ProjectsProjectKeyRoute: ProjectsProjectKeyRoute,
+}
+
+const ProjectsRouteRouteWithChildren = ProjectsRouteRoute._addFileChildren(
+  ProjectsRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProjectsRouteRoute: ProjectsRouteRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
-  ProjectsProjectKeyRoute: ProjectsProjectKeyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
