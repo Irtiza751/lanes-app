@@ -12,12 +12,10 @@ import {
   ArrowDown01FreeIcons,
   Copy01FreeIcons,
   CubeFreeIcons,
-  DeliveryBox02FreeIcons,
   InboxFreeIcons,
   LicenseDraftFreeIcons,
   ReplayFreeIcons,
   Settings02FreeIcons,
-  Settings05FreeIcons,
   Target03FreeIcons,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
