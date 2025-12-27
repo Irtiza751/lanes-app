@@ -6,17 +6,21 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
 import {
   ArchiveFreeIcons,
   ArrowDown01FreeIcons,
   Copy01FreeIcons,
-  CubeFreeIcons,
   InboxFreeIcons,
   LicenseDraftFreeIcons,
   ReplayFreeIcons,
   Settings02FreeIcons,
   Target03FreeIcons,
+  ThreeDViewFreeIcons,
+  UserMultiple02FreeIcons,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Link } from '@tanstack/react-router'
@@ -42,9 +46,19 @@ const items = [
     icon: () => <HugeiconsIcon icon={Target03FreeIcons} />,
   },
   {
+    title: 'Members',
+    url: '/$project/members',
+    icon: () => <HugeiconsIcon icon={UserMultiple02FreeIcons} />,
+  },
+  {
     title: 'Drafts',
     url: '/$project/drafts',
     icon: () => <HugeiconsIcon icon={LicenseDraftFreeIcons} />,
+  },
+  {
+    title: 'Archived',
+    url: '/$project/archived',
+    icon: () => <HugeiconsIcon icon={ArchiveFreeIcons} />,
   },
 ]
 
@@ -52,7 +66,7 @@ export function ProjectSidebar() {
   const { project } = ProjectRoute.useParams()
 
   return (
-    <Sidebar variant="inset">
+    <Sidebar variant="inset" className="text-muted-foreground">
       <SidebarHeader />
       <SidebarContent>
         <SidebarGroup>
@@ -65,7 +79,7 @@ export function ProjectSidebar() {
                     className="flex items-center w-full gap-2 h-full"
                     params={{ project }}
                   >
-                    <div className="text-muted-foreground">
+                    <div>
                       <item.icon />
                     </div>
                     <span>{item.title}</span>
@@ -73,50 +87,44 @@ export function ProjectSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
-            <Collapsible defaultOpen>
-              <SidebarMenuItem>
-                <CollapsibleTrigger className="w-full group">
-                  <SidebarMenuButton className="text-xs py-0 h-7.5">
-                    <span className="text-muted-foreground">Project</span>
-                    <HugeiconsIcon
-                      icon={ArrowDown01FreeIcons}
-                      className="group-data-[state=closed]:-rotate-90 transition-transform"
-                    />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuButton>
-                    <HugeiconsIcon
-                      className="text-muted-foreground"
-                      icon={Copy01FreeIcons}
-                    />
-                    <span>Issues</span>
-                  </SidebarMenuButton>
-                  <SidebarMenuButton>
-                    <HugeiconsIcon
-                      className="text-muted-foreground"
-                      icon={ReplayFreeIcons}
-                    />
-                    <span>Sprints</span>
-                  </SidebarMenuButton>
-                  <SidebarMenuButton>
-                    <HugeiconsIcon
-                      className="text-muted-foreground"
-                      icon={CubeFreeIcons}
-                    />
-                    <span>Epics</span>
-                  </SidebarMenuButton>
-                  <SidebarMenuButton>
-                    <HugeiconsIcon
-                      className="text-muted-foreground"
-                      icon={ArchiveFreeIcons}
-                    />
-                    <span>Archive</span>
-                  </SidebarMenuButton>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
           </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <Collapsible defaultOpen>
+            <SidebarMenuItem>
+              <CollapsibleTrigger className="w-full group">
+                <SidebarMenuButton className="text-xs py-0 h-7.5">
+                  <span>Project</span>
+                  <HugeiconsIcon
+                    icon={ArrowDown01FreeIcons}
+                    className="group-data-[state=closed]:-rotate-90 transition-transform"
+                  />
+                </SidebarMenuButton>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <SidebarMenuButton>
+                  <HugeiconsIcon icon={Copy01FreeIcons} />
+                  <span>Issues</span>
+                </SidebarMenuButton>
+                <SidebarMenuButton>
+                  <HugeiconsIcon icon={ReplayFreeIcons} />
+                  <span>Sprints</span>
+                </SidebarMenuButton>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton>Current</SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton>Upcoming</SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+                <SidebarMenuButton>
+                  <HugeiconsIcon icon={ThreeDViewFreeIcons} />
+                  <span>Epics</span>
+                </SidebarMenuButton>
+              </CollapsibleContent>
+            </SidebarMenuItem>
+          </Collapsible>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
