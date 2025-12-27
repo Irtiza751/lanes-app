@@ -9,14 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProjectsRouteRouteImport } from './routes/projects/route'
+import { Route as ProjectRouteRouteImport } from './routes/$project/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProjectsProjectKeyRouteImport } from './routes/projects/$projectKey'
+import { Route as ProjectIndexRouteImport } from './routes/$project/index'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
+import { Route as ProjectInboxIndexRouteImport } from './routes/$project/inbox/index'
 
-const ProjectsRouteRoute = ProjectsRouteRouteImport.update({
-  id: '/projects',
-  path: '/projects',
+const ProjectRouteRoute = ProjectRouteRouteImport.update({
+  id: '/$project',
+  path: '/$project',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -24,57 +25,75 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsProjectKeyRoute = ProjectsProjectKeyRouteImport.update({
-  id: '/$projectKey',
-  path: '/$projectKey',
-  getParentRoute: () => ProjectsRouteRoute,
+const ProjectIndexRoute = ProjectIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProjectRouteRoute,
 } as any)
 const AuthSignInRoute = AuthSignInRouteImport.update({
   id: '/auth/sign-in',
   path: '/auth/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectInboxIndexRoute = ProjectInboxIndexRouteImport.update({
+  id: '/inbox/',
+  path: '/inbox/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/projects': typeof ProjectsRouteRouteWithChildren
+  '/$project': typeof ProjectRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
-  '/projects/$projectKey': typeof ProjectsProjectKeyRoute
+  '/$project/': typeof ProjectIndexRoute
+  '/$project/inbox': typeof ProjectInboxIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/projects': typeof ProjectsRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
-  '/projects/$projectKey': typeof ProjectsProjectKeyRoute
+  '/$project': typeof ProjectIndexRoute
+  '/$project/inbox': typeof ProjectInboxIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/projects': typeof ProjectsRouteRouteWithChildren
+  '/$project': typeof ProjectRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
-  '/projects/$projectKey': typeof ProjectsProjectKeyRoute
+  '/$project/': typeof ProjectIndexRoute
+  '/$project/inbox/': typeof ProjectInboxIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
+  fullPaths:
+    | '/'
+    | '/$project'
+    | '/auth/sign-in'
+    | '/$project/'
+    | '/$project/inbox'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
-  id: '__root__' | '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
+  to: '/' | '/auth/sign-in' | '/$project' | '/$project/inbox'
+  id:
+    | '__root__'
+    | '/'
+    | '/$project'
+    | '/auth/sign-in'
+    | '/$project/'
+    | '/$project/inbox/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ProjectsRouteRoute: typeof ProjectsRouteRouteWithChildren
+  ProjectRouteRoute: typeof ProjectRouteRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteRouteImport
+    '/$project': {
+      id: '/$project'
+      path: '/$project'
+      fullPath: '/$project'
+      preLoaderRoute: typeof ProjectRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -84,12 +103,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/$projectKey': {
-      id: '/projects/$projectKey'
-      path: '/$projectKey'
-      fullPath: '/projects/$projectKey'
-      preLoaderRoute: typeof ProjectsProjectKeyRouteImport
-      parentRoute: typeof ProjectsRouteRoute
+    '/$project/': {
+      id: '/$project/'
+      path: '/'
+      fullPath: '/$project/'
+      preLoaderRoute: typeof ProjectIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
     }
     '/auth/sign-in': {
       id: '/auth/sign-in'
@@ -98,24 +117,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$project/inbox/': {
+      id: '/$project/inbox/'
+      path: '/inbox'
+      fullPath: '/$project/inbox'
+      preLoaderRoute: typeof ProjectInboxIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
   }
 }
 
-interface ProjectsRouteRouteChildren {
-  ProjectsProjectKeyRoute: typeof ProjectsProjectKeyRoute
+interface ProjectRouteRouteChildren {
+  ProjectIndexRoute: typeof ProjectIndexRoute
+  ProjectInboxIndexRoute: typeof ProjectInboxIndexRoute
 }
 
-const ProjectsRouteRouteChildren: ProjectsRouteRouteChildren = {
-  ProjectsProjectKeyRoute: ProjectsProjectKeyRoute,
+const ProjectRouteRouteChildren: ProjectRouteRouteChildren = {
+  ProjectIndexRoute: ProjectIndexRoute,
+  ProjectInboxIndexRoute: ProjectInboxIndexRoute,
 }
 
-const ProjectsRouteRouteWithChildren = ProjectsRouteRoute._addFileChildren(
-  ProjectsRouteRouteChildren,
+const ProjectRouteRouteWithChildren = ProjectRouteRoute._addFileChildren(
+  ProjectRouteRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ProjectsRouteRoute: ProjectsRouteRouteWithChildren,
+  ProjectRouteRoute: ProjectRouteRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
 }
 export const routeTree = rootRouteImport

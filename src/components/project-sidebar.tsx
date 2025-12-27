@@ -3,67 +3,69 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import {
+  ArchiveFreeIcons,
   ArrowDown01FreeIcons,
+  Copy01FreeIcons,
+  CubeFreeIcons,
+  DeliveryBox02FreeIcons,
   InboxFreeIcons,
-  PencilEdit02FreeIcons,
-  Search01FreeIcons,
+  LicenseDraftFreeIcons,
+  ReplayFreeIcons,
+  Settings02FreeIcons,
+  Settings05FreeIcons,
   Target03FreeIcons,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Link } from '@tanstack/react-router'
-import { Button } from './ui/button'
+import { SidebarHeader } from './sidebar-header'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from './ui/collapsible'
+
+import { Route as ProjectRoute } from '@/routes/$project/route'
 
 // Menu items.
 const items = [
   {
     title: 'Inbox',
-    url: '#',
+    url: '/$project/inbox',
     icon: () => <HugeiconsIcon icon={InboxFreeIcons} />,
   },
   {
     title: 'My Issues',
-    url: '#',
+    url: '/$project/my-issues',
     icon: () => <HugeiconsIcon icon={Target03FreeIcons} />,
+  },
+  {
+    title: 'Drafts',
+    url: '/$project/drafts',
+    icon: () => <HugeiconsIcon icon={LicenseDraftFreeIcons} />,
   },
 ]
 
 export function ProjectSidebar() {
+  const { project } = ProjectRoute.useParams()
+
   return (
     <Sidebar variant="inset">
-      <SidebarHeader className="flex flex-row items-center">
-        <div className="flex-1">
-          <button className="text-xs h-7 flex items-center flex gap-2 hover:bg-muted px-1 rounded-sm">
-            <div className="bg-orange-400 size-4.5 flex items-center justify-center rounded-sm">
-              <small className="font-semibold">TA</small>
-            </div>
-            <span className="font-semibold">Taskmaster</span>
-            <HugeiconsIcon icon={ArrowDown01FreeIcons} size={14} />
-          </button>
-        </div>
-        <div className="flex justify-end gpa-2">
-          <Button variant="ghost" size="icon">
-            <HugeiconsIcon icon={Search01FreeIcons} />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <HugeiconsIcon icon={PencilEdit02FreeIcons} />
-          </Button>
-        </div>
-      </SidebarHeader>
+      <SidebarHeader />
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
             {items.map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton className="text-xs py-0 h-7.5">
+                <SidebarMenuButton className="py-0 h-7.5">
                   <Link
                     to={item.url}
                     className="flex items-center w-full gap-2 h-full"
+                    params={{ project }}
                   >
                     <div className="text-muted-foreground">
                       <item.icon />
@@ -73,10 +75,68 @@ export function ProjectSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
+            <Collapsible defaultOpen>
+              <SidebarMenuItem>
+                <CollapsibleTrigger className="w-full group">
+                  <SidebarMenuButton className="text-xs py-0 h-7.5">
+                    <span className="text-muted-foreground">Project</span>
+                    <HugeiconsIcon
+                      icon={ArrowDown01FreeIcons}
+                      className="group-data-[state=closed]:-rotate-90 transition-transform"
+                    />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuButton>
+                    <HugeiconsIcon
+                      className="text-muted-foreground"
+                      icon={Copy01FreeIcons}
+                    />
+                    <span>Issues</span>
+                  </SidebarMenuButton>
+                  <SidebarMenuButton>
+                    <HugeiconsIcon
+                      className="text-muted-foreground"
+                      icon={ReplayFreeIcons}
+                    />
+                    <span>Sprints</span>
+                  </SidebarMenuButton>
+                  <SidebarMenuButton>
+                    <HugeiconsIcon
+                      className="text-muted-foreground"
+                      icon={CubeFreeIcons}
+                    />
+                    <span>Epics</span>
+                  </SidebarMenuButton>
+                  <SidebarMenuButton>
+                    <HugeiconsIcon
+                      className="text-muted-foreground"
+                      icon={ArchiveFreeIcons}
+                    />
+                    <span>Archive</span>
+                  </SidebarMenuButton>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton className="py-0">
+              <Link
+                to="/$project"
+                className="flex items-center w-full gap-2 h-full"
+                params={{ project }}
+              >
+                <HugeiconsIcon icon={Settings02FreeIcons} />
+                <span>Project Settings</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }
