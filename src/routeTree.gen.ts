@@ -13,6 +13,7 @@ import { Route as ProjectRouteRouteImport } from './routes/$project/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectIndexRouteImport } from './routes/$project/index'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
+import { Route as ProjectSettingsIndexRouteImport } from './routes/$project/settings/index'
 import { Route as ProjectMyIssuesIndexRouteImport } from './routes/$project/my-issues/index'
 import { Route as ProjectMembersIndexRouteImport } from './routes/$project/members/index'
 import { Route as ProjectInboxIndexRouteImport } from './routes/$project/inbox/index'
@@ -38,6 +39,11 @@ const AuthSignInRoute = AuthSignInRouteImport.update({
   id: '/auth/sign-in',
   path: '/auth/sign-in',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectSettingsIndexRoute = ProjectSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => ProjectRouteRoute,
 } as any)
 const ProjectMyIssuesIndexRoute = ProjectMyIssuesIndexRouteImport.update({
   id: '/my-issues/',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/$project/inbox': typeof ProjectInboxIndexRoute
   '/$project/members': typeof ProjectMembersIndexRoute
   '/$project/my-issues': typeof ProjectMyIssuesIndexRoute
+  '/$project/settings': typeof ProjectSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/$project/inbox': typeof ProjectInboxIndexRoute
   '/$project/members': typeof ProjectMembersIndexRoute
   '/$project/my-issues': typeof ProjectMyIssuesIndexRoute
+  '/$project/settings': typeof ProjectSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/$project/inbox/': typeof ProjectInboxIndexRoute
   '/$project/members/': typeof ProjectMembersIndexRoute
   '/$project/my-issues/': typeof ProjectMyIssuesIndexRoute
+  '/$project/settings/': typeof ProjectSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/$project/inbox'
     | '/$project/members'
     | '/$project/my-issues'
+    | '/$project/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/$project/inbox'
     | '/$project/members'
     | '/$project/my-issues'
+    | '/$project/settings'
   id:
     | '__root__'
     | '/'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/$project/inbox/'
     | '/$project/members/'
     | '/$project/my-issues/'
+    | '/$project/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -168,6 +180,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/sign-in'
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/$project/settings/': {
+      id: '/$project/settings/'
+      path: '/settings'
+      fullPath: '/$project/settings'
+      preLoaderRoute: typeof ProjectSettingsIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
     }
     '/$project/my-issues/': {
       id: '/$project/my-issues/'
@@ -214,6 +233,7 @@ interface ProjectRouteRouteChildren {
   ProjectInboxIndexRoute: typeof ProjectInboxIndexRoute
   ProjectMembersIndexRoute: typeof ProjectMembersIndexRoute
   ProjectMyIssuesIndexRoute: typeof ProjectMyIssuesIndexRoute
+  ProjectSettingsIndexRoute: typeof ProjectSettingsIndexRoute
 }
 
 const ProjectRouteRouteChildren: ProjectRouteRouteChildren = {
@@ -223,6 +243,7 @@ const ProjectRouteRouteChildren: ProjectRouteRouteChildren = {
   ProjectInboxIndexRoute: ProjectInboxIndexRoute,
   ProjectMembersIndexRoute: ProjectMembersIndexRoute,
   ProjectMyIssuesIndexRoute: ProjectMyIssuesIndexRoute,
+  ProjectSettingsIndexRoute: ProjectSettingsIndexRoute,
 }
 
 const ProjectRouteRouteWithChildren = ProjectRouteRoute._addFileChildren(

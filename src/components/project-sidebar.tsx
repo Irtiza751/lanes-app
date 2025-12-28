@@ -127,7 +127,7 @@ export function ProjectSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton className="py-0">
               <Link
-                to="/$project"
+                to="/$project/settings"
                 className="flex items-center w-full gap-2 h-full"
                 params={{ project }}
               >
