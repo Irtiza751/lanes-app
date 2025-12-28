@@ -10,19 +10,6 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
-import {
-  ArchiveFreeIcons,
-  ArrowDown01FreeIcons,
-  Copy01FreeIcons,
-  InboxFreeIcons,
-  LicenseDraftFreeIcons,
-  ReplayFreeIcons,
-  Settings02FreeIcons,
-  Target03FreeIcons,
-  ThreeDViewFreeIcons,
-  UserMultiple02FreeIcons,
-} from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
 import { Link } from '@tanstack/react-router'
 import { SidebarHeader } from './sidebar-header'
 import {
@@ -33,32 +20,43 @@ import {
 
 import { Route as ProjectRoute } from '@/routes/$project/route'
 
+import {
+  ArchiveBoxIcon,
+  Cog6ToothIcon,
+  CubeIcon,
+  DocumentTextIcon,
+  InboxIcon,
+  PlayCircleIcon,
+  RectangleStackIcon,
+  Square2StackIcon,
+  UsersIcon,
+} from '@heroicons/react/24/outline'
 // Menu items.
 const items = [
   {
     title: 'Inbox',
     url: '/$project/inbox',
-    icon: () => <HugeiconsIcon icon={InboxFreeIcons} />,
+    icon: () => <InboxIcon />,
   },
   {
     title: 'My Issues',
     url: '/$project/my-issues',
-    icon: () => <HugeiconsIcon icon={Target03FreeIcons} />,
+    icon: () => <RectangleStackIcon />,
   },
   {
     title: 'Members',
     url: '/$project/members',
-    icon: () => <HugeiconsIcon icon={UserMultiple02FreeIcons} />,
+    icon: () => <UsersIcon />,
   },
   {
     title: 'Drafts',
     url: '/$project/drafts',
-    icon: () => <HugeiconsIcon icon={LicenseDraftFreeIcons} />,
+    icon: () => <DocumentTextIcon />,
   },
   {
     title: 'Archived',
     url: '/$project/archived',
-    icon: () => <HugeiconsIcon icon={ArchiveFreeIcons} />,
+    icon: () => <ArchiveBoxIcon />,
   },
 ]
 
@@ -95,19 +93,16 @@ export function ProjectSidebar() {
               <CollapsibleTrigger className="w-full group">
                 <SidebarMenuButton className="text-xs py-0 h-7.5">
                   <span>Project</span>
-                  <HugeiconsIcon
-                    icon={ArrowDown01FreeIcons}
-                    className="group-data-[state=closed]:-rotate-90 transition-transform"
-                  />
+                  <span className="inline-block w-0 h-0 border-l-5 border-l-transparent border-r-5 border-r-transparent border-t-5 border-t-muted-foreground" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuButton>
-                  <HugeiconsIcon icon={Copy01FreeIcons} />
+                  <Square2StackIcon />
                   <span>Issues</span>
                 </SidebarMenuButton>
                 <SidebarMenuButton>
-                  <HugeiconsIcon icon={ReplayFreeIcons} />
+                  <PlayCircleIcon />
                   <span>Sprints</span>
                 </SidebarMenuButton>
                 <SidebarMenuSub>
@@ -119,7 +114,7 @@ export function ProjectSidebar() {
                   </SidebarMenuSubItem>
                 </SidebarMenuSub>
                 <SidebarMenuButton>
-                  <HugeiconsIcon icon={ThreeDViewFreeIcons} />
+                  <CubeIcon />
                   <span>Epics</span>
                 </SidebarMenuButton>
               </CollapsibleContent>
@@ -136,8 +131,8 @@ export function ProjectSidebar() {
                 className="flex items-center w-full gap-2 h-full"
                 params={{ project }}
               >
-                <HugeiconsIcon icon={Settings02FreeIcons} />
-                <span>Project Settings</span>
+                <Cog6ToothIcon />
+                <span>Settings</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
