@@ -14,8 +14,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectIndexRouteImport } from './routes/$project/index'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 import { Route as ProjectMyIssuesIndexRouteImport } from './routes/$project/my-issues/index'
+import { Route as ProjectMembersIndexRouteImport } from './routes/$project/members/index'
 import { Route as ProjectInboxIndexRouteImport } from './routes/$project/inbox/index'
 import { Route as ProjectDraftsIndexRouteImport } from './routes/$project/drafts/index'
+import { Route as ProjectArchivedIndexRouteImport } from './routes/$project/archived/index'
 
 const ProjectRouteRoute = ProjectRouteRouteImport.update({
   id: '/$project',
@@ -42,6 +44,11 @@ const ProjectMyIssuesIndexRoute = ProjectMyIssuesIndexRouteImport.update({
   path: '/my-issues/',
   getParentRoute: () => ProjectRouteRoute,
 } as any)
+const ProjectMembersIndexRoute = ProjectMembersIndexRouteImport.update({
+  id: '/members/',
+  path: '/members/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
 const ProjectInboxIndexRoute = ProjectInboxIndexRouteImport.update({
   id: '/inbox/',
   path: '/inbox/',
@@ -52,22 +59,31 @@ const ProjectDraftsIndexRoute = ProjectDraftsIndexRouteImport.update({
   path: '/drafts/',
   getParentRoute: () => ProjectRouteRoute,
 } as any)
+const ProjectArchivedIndexRoute = ProjectArchivedIndexRouteImport.update({
+  id: '/archived/',
+  path: '/archived/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$project': typeof ProjectRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/$project/': typeof ProjectIndexRoute
+  '/$project/archived': typeof ProjectArchivedIndexRoute
   '/$project/drafts': typeof ProjectDraftsIndexRoute
   '/$project/inbox': typeof ProjectInboxIndexRoute
+  '/$project/members': typeof ProjectMembersIndexRoute
   '/$project/my-issues': typeof ProjectMyIssuesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/$project': typeof ProjectIndexRoute
+  '/$project/archived': typeof ProjectArchivedIndexRoute
   '/$project/drafts': typeof ProjectDraftsIndexRoute
   '/$project/inbox': typeof ProjectInboxIndexRoute
+  '/$project/members': typeof ProjectMembersIndexRoute
   '/$project/my-issues': typeof ProjectMyIssuesIndexRoute
 }
 export interface FileRoutesById {
@@ -76,8 +92,10 @@ export interface FileRoutesById {
   '/$project': typeof ProjectRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/$project/': typeof ProjectIndexRoute
+  '/$project/archived/': typeof ProjectArchivedIndexRoute
   '/$project/drafts/': typeof ProjectDraftsIndexRoute
   '/$project/inbox/': typeof ProjectInboxIndexRoute
+  '/$project/members/': typeof ProjectMembersIndexRoute
   '/$project/my-issues/': typeof ProjectMyIssuesIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,16 +105,20 @@ export interface FileRouteTypes {
     | '/$project'
     | '/auth/sign-in'
     | '/$project/'
+    | '/$project/archived'
     | '/$project/drafts'
     | '/$project/inbox'
+    | '/$project/members'
     | '/$project/my-issues'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth/sign-in'
     | '/$project'
+    | '/$project/archived'
     | '/$project/drafts'
     | '/$project/inbox'
+    | '/$project/members'
     | '/$project/my-issues'
   id:
     | '__root__'
@@ -104,8 +126,10 @@ export interface FileRouteTypes {
     | '/$project'
     | '/auth/sign-in'
     | '/$project/'
+    | '/$project/archived/'
     | '/$project/drafts/'
     | '/$project/inbox/'
+    | '/$project/members/'
     | '/$project/my-issues/'
   fileRoutesById: FileRoutesById
 }
@@ -152,6 +176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectMyIssuesIndexRouteImport
       parentRoute: typeof ProjectRouteRoute
     }
+    '/$project/members/': {
+      id: '/$project/members/'
+      path: '/members'
+      fullPath: '/$project/members'
+      preLoaderRoute: typeof ProjectMembersIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
     '/$project/inbox/': {
       id: '/$project/inbox/'
       path: '/inbox'
@@ -166,20 +197,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectDraftsIndexRouteImport
       parentRoute: typeof ProjectRouteRoute
     }
+    '/$project/archived/': {
+      id: '/$project/archived/'
+      path: '/archived'
+      fullPath: '/$project/archived'
+      preLoaderRoute: typeof ProjectArchivedIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
   }
 }
 
 interface ProjectRouteRouteChildren {
   ProjectIndexRoute: typeof ProjectIndexRoute
+  ProjectArchivedIndexRoute: typeof ProjectArchivedIndexRoute
   ProjectDraftsIndexRoute: typeof ProjectDraftsIndexRoute
   ProjectInboxIndexRoute: typeof ProjectInboxIndexRoute
+  ProjectMembersIndexRoute: typeof ProjectMembersIndexRoute
   ProjectMyIssuesIndexRoute: typeof ProjectMyIssuesIndexRoute
 }
 
 const ProjectRouteRouteChildren: ProjectRouteRouteChildren = {
   ProjectIndexRoute: ProjectIndexRoute,
+  ProjectArchivedIndexRoute: ProjectArchivedIndexRoute,
   ProjectDraftsIndexRoute: ProjectDraftsIndexRoute,
   ProjectInboxIndexRoute: ProjectInboxIndexRoute,
+  ProjectMembersIndexRoute: ProjectMembersIndexRoute,
   ProjectMyIssuesIndexRoute: ProjectMyIssuesIndexRoute,
 }
 
