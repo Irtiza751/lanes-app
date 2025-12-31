@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/sidebar'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/projects')({
+export const Route = createFileRoute('/$project')({
   component: RouteComponent,
 })
 
@@ -14,7 +14,7 @@ function RouteComponent() {
   return (
     <SidebarProvider>
       <ProjectSidebar />
-      <SidebarInset className="p-2">
+      <SidebarInset className="p-2 border">
         <SidebarTrigger />
         <Outlet />
       </SidebarInset>

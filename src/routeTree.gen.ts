@@ -9,14 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProjectsRouteRouteImport } from './routes/projects/route'
+import { Route as ProjectRouteRouteImport } from './routes/$project/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProjectsProjectKeyRouteImport } from './routes/projects/$projectKey'
+import { Route as ProjectIndexRouteImport } from './routes/$project/index'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
+import { Route as ProjectSettingsIndexRouteImport } from './routes/$project/settings/index'
+import { Route as ProjectMyIssuesIndexRouteImport } from './routes/$project/my-issues/index'
+import { Route as ProjectMembersIndexRouteImport } from './routes/$project/members/index'
+import { Route as ProjectInboxIndexRouteImport } from './routes/$project/inbox/index'
+import { Route as ProjectDraftsIndexRouteImport } from './routes/$project/drafts/index'
+import { Route as ProjectArchivedIndexRouteImport } from './routes/$project/archived/index'
 
-const ProjectsRouteRoute = ProjectsRouteRouteImport.update({
-  id: '/projects',
-  path: '/projects',
+const ProjectRouteRoute = ProjectRouteRouteImport.update({
+  id: '/$project',
+  path: '/$project',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -24,57 +30,134 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsProjectKeyRoute = ProjectsProjectKeyRouteImport.update({
-  id: '/$projectKey',
-  path: '/$projectKey',
-  getParentRoute: () => ProjectsRouteRoute,
+const ProjectIndexRoute = ProjectIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProjectRouteRoute,
 } as any)
 const AuthSignInRoute = AuthSignInRouteImport.update({
   id: '/auth/sign-in',
   path: '/auth/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectSettingsIndexRoute = ProjectSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
+const ProjectMyIssuesIndexRoute = ProjectMyIssuesIndexRouteImport.update({
+  id: '/my-issues/',
+  path: '/my-issues/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
+const ProjectMembersIndexRoute = ProjectMembersIndexRouteImport.update({
+  id: '/members/',
+  path: '/members/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
+const ProjectInboxIndexRoute = ProjectInboxIndexRouteImport.update({
+  id: '/inbox/',
+  path: '/inbox/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
+const ProjectDraftsIndexRoute = ProjectDraftsIndexRouteImport.update({
+  id: '/drafts/',
+  path: '/drafts/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
+const ProjectArchivedIndexRoute = ProjectArchivedIndexRouteImport.update({
+  id: '/archived/',
+  path: '/archived/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/projects': typeof ProjectsRouteRouteWithChildren
+  '/$project': typeof ProjectRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
-  '/projects/$projectKey': typeof ProjectsProjectKeyRoute
+  '/$project/': typeof ProjectIndexRoute
+  '/$project/archived': typeof ProjectArchivedIndexRoute
+  '/$project/drafts': typeof ProjectDraftsIndexRoute
+  '/$project/inbox': typeof ProjectInboxIndexRoute
+  '/$project/members': typeof ProjectMembersIndexRoute
+  '/$project/my-issues': typeof ProjectMyIssuesIndexRoute
+  '/$project/settings': typeof ProjectSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/projects': typeof ProjectsRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
-  '/projects/$projectKey': typeof ProjectsProjectKeyRoute
+  '/$project': typeof ProjectIndexRoute
+  '/$project/archived': typeof ProjectArchivedIndexRoute
+  '/$project/drafts': typeof ProjectDraftsIndexRoute
+  '/$project/inbox': typeof ProjectInboxIndexRoute
+  '/$project/members': typeof ProjectMembersIndexRoute
+  '/$project/my-issues': typeof ProjectMyIssuesIndexRoute
+  '/$project/settings': typeof ProjectSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/projects': typeof ProjectsRouteRouteWithChildren
+  '/$project': typeof ProjectRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
-  '/projects/$projectKey': typeof ProjectsProjectKeyRoute
+  '/$project/': typeof ProjectIndexRoute
+  '/$project/archived/': typeof ProjectArchivedIndexRoute
+  '/$project/drafts/': typeof ProjectDraftsIndexRoute
+  '/$project/inbox/': typeof ProjectInboxIndexRoute
+  '/$project/members/': typeof ProjectMembersIndexRoute
+  '/$project/my-issues/': typeof ProjectMyIssuesIndexRoute
+  '/$project/settings/': typeof ProjectSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
+  fullPaths:
+    | '/'
+    | '/$project'
+    | '/auth/sign-in'
+    | '/$project/'
+    | '/$project/archived'
+    | '/$project/drafts'
+    | '/$project/inbox'
+    | '/$project/members'
+    | '/$project/my-issues'
+    | '/$project/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
-  id: '__root__' | '/' | '/projects' | '/auth/sign-in' | '/projects/$projectKey'
+  to:
+    | '/'
+    | '/auth/sign-in'
+    | '/$project'
+    | '/$project/archived'
+    | '/$project/drafts'
+    | '/$project/inbox'
+    | '/$project/members'
+    | '/$project/my-issues'
+    | '/$project/settings'
+  id:
+    | '__root__'
+    | '/'
+    | '/$project'
+    | '/auth/sign-in'
+    | '/$project/'
+    | '/$project/archived/'
+    | '/$project/drafts/'
+    | '/$project/inbox/'
+    | '/$project/members/'
+    | '/$project/my-issues/'
+    | '/$project/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ProjectsRouteRoute: typeof ProjectsRouteRouteWithChildren
+  ProjectRouteRoute: typeof ProjectRouteRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteRouteImport
+    '/$project': {
+      id: '/$project'
+      path: '/$project'
+      fullPath: '/$project'
+      preLoaderRoute: typeof ProjectRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -84,12 +167,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/$projectKey': {
-      id: '/projects/$projectKey'
-      path: '/$projectKey'
-      fullPath: '/projects/$projectKey'
-      preLoaderRoute: typeof ProjectsProjectKeyRouteImport
-      parentRoute: typeof ProjectsRouteRoute
+    '/$project/': {
+      id: '/$project/'
+      path: '/'
+      fullPath: '/$project/'
+      preLoaderRoute: typeof ProjectIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
     }
     '/auth/sign-in': {
       id: '/auth/sign-in'
@@ -98,24 +181,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$project/settings/': {
+      id: '/$project/settings/'
+      path: '/settings'
+      fullPath: '/$project/settings'
+      preLoaderRoute: typeof ProjectSettingsIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
+    '/$project/my-issues/': {
+      id: '/$project/my-issues/'
+      path: '/my-issues'
+      fullPath: '/$project/my-issues'
+      preLoaderRoute: typeof ProjectMyIssuesIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
+    '/$project/members/': {
+      id: '/$project/members/'
+      path: '/members'
+      fullPath: '/$project/members'
+      preLoaderRoute: typeof ProjectMembersIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
+    '/$project/inbox/': {
+      id: '/$project/inbox/'
+      path: '/inbox'
+      fullPath: '/$project/inbox'
+      preLoaderRoute: typeof ProjectInboxIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
+    '/$project/drafts/': {
+      id: '/$project/drafts/'
+      path: '/drafts'
+      fullPath: '/$project/drafts'
+      preLoaderRoute: typeof ProjectDraftsIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
+    '/$project/archived/': {
+      id: '/$project/archived/'
+      path: '/archived'
+      fullPath: '/$project/archived'
+      preLoaderRoute: typeof ProjectArchivedIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
   }
 }
 
-interface ProjectsRouteRouteChildren {
-  ProjectsProjectKeyRoute: typeof ProjectsProjectKeyRoute
+interface ProjectRouteRouteChildren {
+  ProjectIndexRoute: typeof ProjectIndexRoute
+  ProjectArchivedIndexRoute: typeof ProjectArchivedIndexRoute
+  ProjectDraftsIndexRoute: typeof ProjectDraftsIndexRoute
+  ProjectInboxIndexRoute: typeof ProjectInboxIndexRoute
+  ProjectMembersIndexRoute: typeof ProjectMembersIndexRoute
+  ProjectMyIssuesIndexRoute: typeof ProjectMyIssuesIndexRoute
+  ProjectSettingsIndexRoute: typeof ProjectSettingsIndexRoute
 }
 
-const ProjectsRouteRouteChildren: ProjectsRouteRouteChildren = {
-  ProjectsProjectKeyRoute: ProjectsProjectKeyRoute,
+const ProjectRouteRouteChildren: ProjectRouteRouteChildren = {
+  ProjectIndexRoute: ProjectIndexRoute,
+  ProjectArchivedIndexRoute: ProjectArchivedIndexRoute,
+  ProjectDraftsIndexRoute: ProjectDraftsIndexRoute,
+  ProjectInboxIndexRoute: ProjectInboxIndexRoute,
+  ProjectMembersIndexRoute: ProjectMembersIndexRoute,
+  ProjectMyIssuesIndexRoute: ProjectMyIssuesIndexRoute,
+  ProjectSettingsIndexRoute: ProjectSettingsIndexRoute,
 }
 
-const ProjectsRouteRouteWithChildren = ProjectsRouteRoute._addFileChildren(
-  ProjectsRouteRouteChildren,
+const ProjectRouteRouteWithChildren = ProjectRouteRoute._addFileChildren(
+  ProjectRouteRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ProjectsRouteRoute: ProjectsRouteRouteWithChildren,
+  ProjectRouteRoute: ProjectRouteRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
 }
 export const routeTree = rootRouteImport
