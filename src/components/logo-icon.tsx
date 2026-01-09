@@ -1,19 +1,19 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
 interface LogoProps {
-  className?: string;
-  size?: number;
+  className?: string
+  size?: number
 }
 
 export function LogoIcon({
-  className = "text-foreground",
+  className = 'text-foreground',
   size = 10,
 }: LogoProps) {
-  const width = 40;
-  const height = 40;
-  const aspectRatio = width / height;
-  const svgHeight = size;
-  const svgWidth = size * aspectRatio;
+  const width = 40
+  const height = 40
+  const aspectRatio = width / height
+  const svgHeight = size
+  const svgWidth = size * aspectRatio
 
   return (
     <svg
@@ -22,7 +22,7 @@ export function LogoIcon({
       viewBox="0 0 40 40"
       width={svgWidth}
       height={svgHeight}
-      className={cn("block", className)}
+      className={cn('block', className)}
     >
       <g id="logogram" transform="translate(0, 0) rotate(0) ">
         <path
@@ -56,5 +56,5 @@ export function LogoIcon({
       </g>
       {/* <g id="logotype" transform="translate(40, 20)"></g> */}
     </svg>
-  );
+  )
 }

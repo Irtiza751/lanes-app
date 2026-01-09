@@ -1,5 +1,5 @@
-import { Logo } from '@/components/logo'
 import { Link } from '@tanstack/react-router'
+import { Logo } from '@/components/logo'
 
 const links = [
   {

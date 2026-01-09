@@ -1,3 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import {
@@ -9,7 +10,6 @@ import {
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/auth/sign-in')({
   component: RouteComponent,
