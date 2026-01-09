@@ -5,7 +5,7 @@ import {
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { SidebarHeader as ShadCNSidebarHeader } from '@/components/ui/sidebar'
-import { ChevronUpDownIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
+import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +18,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import { Input } from './ui/input'
 
 export function SidebarHeader() {
   return (
