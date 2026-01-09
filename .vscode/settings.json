@@ -1,4 +1,7 @@
 {
-  "cSpell.words": ["hugeicons"],
+  "cSpell.words": [
+    "dexie",
+    "hugeicons"
+  ],
   "editor.formatOnSave": true
 }
