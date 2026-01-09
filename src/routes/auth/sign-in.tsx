@@ -1,4 +1,3 @@
-import { createFileRoute } from '@tanstack/react-router'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import {
@@ -10,29 +9,35 @@ import {
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/auth/sign-in')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const router = useRouter()
+  const handleSignin = (e: any) => {
+    e.preventDefault()
+    console.log('sign in', e)
+    const activeProject = window.localStorage.getItem('project') || '/'
+    router.navigate({ to: `/${activeProject}` })
+  }
+
   return (
     <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="w-full max-w-sm">
         <div className={cn('flex flex-col gap-6')}>
-          <form>
+          <form onSubmit={handleSignin}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <a
-                  href="#"
-                  className="flex flex-col items-center gap-2 font-medium"
-                >
+                <div className="flex flex-col items-center gap-2 font-medium">
                   <div className="flex size-8 items-center justify-center rounded-md">
                     {/* <GalleryVerticalEnd className="size-6" /> */}
                     <Logo size={30} />
                   </div>
                   <span className="sr-only">Lanes</span>
-                </a>
+                </div>
                 <h1 className="text-xl font-bold">Welcome to Lanes.</h1>
                 <FieldDescription>
                   Don&apos;t have an account? <a href="#">Sign up</a>

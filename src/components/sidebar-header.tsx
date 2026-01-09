@@ -3,8 +3,8 @@ import {
   Search01FreeIcons,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { ChevronUpDownIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
-import { Button } from './ui/button'
+import { SidebarHeader as ShadCNSidebarHeader } from '@/components/ui/sidebar'
+import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,8 +17,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import { Input } from './ui/input'
-import { SidebarHeader as ShadCNSidebarHeader } from '@/components/ui/sidebar'
+import { Button } from './ui/button'
 
 export function SidebarHeader() {
   return (
