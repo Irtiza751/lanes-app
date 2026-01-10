@@ -1,3 +1,21 @@
+import { Link } from '@tanstack/react-router'
+import {
+  ArchiveBoxIcon,
+  Cog6ToothIcon,
+  CubeIcon,
+  DocumentTextIcon,
+  InboxIcon,
+  PlayCircleIcon,
+  RectangleStackIcon,
+  Square2StackIcon,
+  UsersIcon,
+} from '@heroicons/react/24/outline'
+import { SidebarHeader } from './sidebar-header'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from './ui/collapsible'
 import {
   Sidebar,
   SidebarContent,
@@ -10,27 +28,9 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
-import { Link } from '@tanstack/react-router'
-import { SidebarHeader } from './sidebar-header'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from './ui/collapsible'
 
 import { Route as ProjectRoute } from '@/routes/$project/route'
 
-import {
-  ArchiveBoxIcon,
-  Cog6ToothIcon,
-  CubeIcon,
-  DocumentTextIcon,
-  InboxIcon,
-  PlayCircleIcon,
-  RectangleStackIcon,
-  Square2StackIcon,
-  UsersIcon,
-} from '@heroicons/react/24/outline'
 // Menu items.
 const items = [
   {

@@ -1,9 +1,9 @@
-import { Logo } from '@/components/logo'
-import { Button } from '@/components/ui/button'
 import { Cancel01FreeIcons, Menu01FreeIcons } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Link } from '@tanstack/react-router'
 import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Logo } from '@/components/logo'
 
 const menuItems = [
   { name: 'Features', to: '#' },

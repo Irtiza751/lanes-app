@@ -1,6 +1,6 @@
+import { Link } from '@tanstack/react-router'
 import { useAspectRatio } from '@/hooks/use-aspect-ratio'
 import { cn } from '@/lib/utils'
-import { Link } from '@tanstack/react-router'
 
 interface LogoProps {
   className?: string

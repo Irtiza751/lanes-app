@@ -1,4 +1,3 @@
-import { Button } from './ui/button'
 import {
   PencilEdit02FreeIcons,
   Search01FreeIcons,
@@ -6,6 +5,8 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react'
 import { SidebarHeader as ShadCNSidebarHeader } from '@/components/ui/sidebar'
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
+import { Button } from './ui/button'
+
 import {
   DropdownMenu,
   DropdownMenuContent,

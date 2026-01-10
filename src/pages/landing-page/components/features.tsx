@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ZapFreeIcons } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 export function FeaturesSection() {
   return (
