@@ -1,8 +1,3 @@
-import {
-  PencilEdit02FreeIcons,
-  Search01FreeIcons,
-} from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
 import { SidebarHeader as ShadCNSidebarHeader } from '@/components/ui/sidebar'
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import { Button } from './ui/button'
@@ -19,6 +14,10 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
+import {
+  MagnifyingGlassIcon,
+  PencilSquareIcon,
+} from '@heroicons/react/24/solid'
 
 export function SidebarHeader() {
   return (
@@ -28,10 +27,10 @@ export function SidebarHeader() {
       </div>
       <div className="flex justify-end gpa-2">
         <Button variant="ghost" size="icon-sm">
-          <HugeiconsIcon icon={Search01FreeIcons} />
+          <MagnifyingGlassIcon />
         </Button>
         <Button variant="secondary" size="icon-sm">
-          <HugeiconsIcon icon={PencilEdit02FreeIcons} />
+          <PencilSquareIcon />
         </Button>
       </div>
     </ShadCNSidebarHeader>

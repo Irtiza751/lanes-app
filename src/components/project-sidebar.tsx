@@ -9,7 +9,7 @@ import {
   RectangleStackIcon,
   Square2StackIcon,
   UsersIcon,
-} from '@heroicons/react/24/outline'
+} from '@heroicons/react/24/solid'
 import { SidebarHeader } from './sidebar-header'
 import {
   Collapsible,

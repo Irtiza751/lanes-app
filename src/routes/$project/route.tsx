@@ -10,7 +10,7 @@ function RouteComponent() {
   return (
     <SidebarProvider>
       <ProjectSidebar />
-      <SidebarInset className="dark:border">
+      <SidebarInset className="dark:border border-input">
         <Outlet />
       </SidebarInset>
     </SidebarProvider>
