@@ -23,9 +23,9 @@ export default function Progress({
         r="6"
         fill="none"
         stroke={color || 'currentColor'}
-        stroke-width="1.5"
-        stroke-dasharray={`3.14 ${dashed ? '1' : '0'}`}
-        stroke-dashoffset="-0.7"
+        strokeWidth="1.5"
+        strokeDasharray={`3.14 ${dashed ? '1' : '0'}`}
+        strokeDashoffset="-0.7"
       ></circle>
       <circle
         className="progress"
@@ -34,9 +34,9 @@ export default function Progress({
         r="2"
         fill="none"
         stroke={color || 'currentColor'}
-        stroke-width="4"
-        stroke-dasharray="12.189379495928398 24.378758991856795"
-        stroke-dashoffset={value}
+        strokeWidth="4"
+        strokeDasharray="12.189379495928398 24.378758991856795"
+        strokeDashoffset={value}
         transform="rotate(-90 7 7)"
       ></circle>
     </svg>

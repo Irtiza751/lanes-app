@@ -8,12 +8,38 @@ import {
 import { FilterMailIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { createFileRoute } from '@tanstack/react-router'
+import { KanbanBoard } from '@/components/kanban-board'
 
 const lanes = [
   {
+    status: 'backlog',
+    title: 'Backlog',
+    iconValue: 13,
+    iconColor: 'white',
+  },
+  {
     status: 'todo',
-    title: 'todos',
-    issues: [{}],
+    title: 'Todos',
+    iconColor: 'green',
+    iconValue: 10,
+  },
+  {
+    status: 'in-progress',
+    title: 'In Progress',
+    iconColor: 'orange',
+    iconValue: 8,
+  },
+  {
+    status: 'code-review',
+    title: 'Code Review',
+    iconColor: 'yellowgreen',
+    iconValue: 6,
+  },
+  {
+    status: 'done',
+    title: 'Done',
+    iconColor: 'purple',
+    iconValue: 0,
   },
 ]
 
@@ -56,6 +82,8 @@ function RouteComponent() {
           <AdjustmentsHorizontalIcon /> Display
         </Button>
       </header>
+      {/* board */}
+      <KanbanBoard lanes={lanes} />
     </div>
   )
 }
