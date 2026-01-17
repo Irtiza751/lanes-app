@@ -71,11 +71,15 @@ export function ProjectSidebar() {
           <SidebarMenu>
             {items.map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton className="py-0 h-7.5">
+                <SidebarMenuButton className="p-0">
                   <Link
                     to={item.url}
-                    className="flex items-center w-full gap-2 h-full"
+                    className="flex items-center w-full gap-2 h-full px-2"
                     params={{ project }}
+                    activeProps={{
+                      className:
+                        'bg-sidebar-accent text-foreground font-medium',
+                    }}
                   >
                     <div>
                       <item.icon />
@@ -97,13 +101,33 @@ export function ProjectSidebar() {
                 {/* </SidebarMenuButton> */}
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <SidebarMenuButton>
-                  <Square2StackIcon />
-                  <span>Issues</span>
+                <SidebarMenuButton className="p-0">
+                  <Link
+                    to="/$project/issues"
+                    params={{ project }}
+                    className="flex items-center w-full gap-2 h-full px-2"
+                    activeProps={{
+                      className:
+                        'bg-sidebar-accent text-foreground font-medium',
+                    }}
+                  >
+                    <Square2StackIcon />
+                    <span>Issues</span>
+                  </Link>
                 </SidebarMenuButton>
-                <SidebarMenuButton>
-                  <PlayCircleIcon />
-                  <span>Sprints</span>
+                <SidebarMenuButton className="p-0">
+                  <Link
+                    to="/$project/sprints"
+                    params={{ project }}
+                    className="flex items-center w-full gap-2 h-full px-2"
+                    activeProps={{
+                      className:
+                        'bg-sidebar-accent text-foreground font-medium',
+                    }}
+                  >
+                    <PlayCircleIcon />
+                    <span>Sprints</span>
+                  </Link>
                 </SidebarMenuButton>
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
@@ -113,9 +137,19 @@ export function ProjectSidebar() {
                     <SidebarMenuSubButton>Upcoming</SidebarMenuSubButton>
                   </SidebarMenuSubItem>
                 </SidebarMenuSub>
-                <SidebarMenuButton>
-                  <CubeIcon />
-                  <span>Epics</span>
+                <SidebarMenuButton className="p-0">
+                  <Link
+                    to="/$project/epics"
+                    params={{ project }}
+                    className="flex items-center w-full gap-2 h-full px-2"
+                    activeProps={{
+                      className:
+                        'bg-sidebar-accent text-foreground font-medium',
+                    }}
+                  >
+                    <CubeIcon />
+                    <span>Epics</span>
+                  </Link>
                 </SidebarMenuButton>
               </CollapsibleContent>
             </SidebarMenuItem>
@@ -125,10 +159,10 @@ export function ProjectSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="py-0">
+            <SidebarMenuButton className="p-0">
               <Link
                 to="/$project/settings"
-                className="flex items-center w-full gap-2 h-full"
+                className="flex items-center w-full gap-2 h-full px-5"
                 params={{ project }}
               >
                 <Cog6ToothIcon />
