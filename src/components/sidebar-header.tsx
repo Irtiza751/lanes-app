@@ -57,13 +57,13 @@ function ProjectHeaderDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button className="text-xs h-7 flex items-center flex gap-2 hover:bg-muted px-1 rounded-sm">
+        <div className="text-xs h-7 flex items-center flex gap-2 hover:bg-muted px-1 rounded-sm">
           <div className="bg-orange-400 size-5 flex items-center justify-center rounded-sm">
             <small className="font-semibold text-white">TA</small>
           </div>
           <span className="font-semibold">Taskmaster</span>
           <ChevronUpDownIcon className="size-4" strokeWidth={2} />
-        </button>
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-56 w-auto bg-secondary border">
         <DropdownMenuGroup>

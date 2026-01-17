@@ -16,6 +16,7 @@ import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 import { Route as ProjectSettingsIndexRouteImport } from './routes/$project/settings/index'
 import { Route as ProjectMyIssuesIndexRouteImport } from './routes/$project/my-issues/index'
 import { Route as ProjectMembersIndexRouteImport } from './routes/$project/members/index'
+import { Route as ProjectIssuesIndexRouteImport } from './routes/$project/issues/index'
 import { Route as ProjectInboxIndexRouteImport } from './routes/$project/inbox/index'
 import { Route as ProjectDraftsIndexRouteImport } from './routes/$project/drafts/index'
 import { Route as ProjectArchivedIndexRouteImport } from './routes/$project/archived/index'
@@ -55,6 +56,11 @@ const ProjectMembersIndexRoute = ProjectMembersIndexRouteImport.update({
   path: '/members/',
   getParentRoute: () => ProjectRouteRoute,
 } as any)
+const ProjectIssuesIndexRoute = ProjectIssuesIndexRouteImport.update({
+  id: '/issues/',
+  path: '/issues/',
+  getParentRoute: () => ProjectRouteRoute,
+} as any)
 const ProjectInboxIndexRoute = ProjectInboxIndexRouteImport.update({
   id: '/inbox/',
   path: '/inbox/',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/$project/archived': typeof ProjectArchivedIndexRoute
   '/$project/drafts': typeof ProjectDraftsIndexRoute
   '/$project/inbox': typeof ProjectInboxIndexRoute
+  '/$project/issues': typeof ProjectIssuesIndexRoute
   '/$project/members': typeof ProjectMembersIndexRoute
   '/$project/my-issues': typeof ProjectMyIssuesIndexRoute
   '/$project/settings': typeof ProjectSettingsIndexRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/$project/archived': typeof ProjectArchivedIndexRoute
   '/$project/drafts': typeof ProjectDraftsIndexRoute
   '/$project/inbox': typeof ProjectInboxIndexRoute
+  '/$project/issues': typeof ProjectIssuesIndexRoute
   '/$project/members': typeof ProjectMembersIndexRoute
   '/$project/my-issues': typeof ProjectMyIssuesIndexRoute
   '/$project/settings': typeof ProjectSettingsIndexRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/$project/archived/': typeof ProjectArchivedIndexRoute
   '/$project/drafts/': typeof ProjectDraftsIndexRoute
   '/$project/inbox/': typeof ProjectInboxIndexRoute
+  '/$project/issues/': typeof ProjectIssuesIndexRoute
   '/$project/members/': typeof ProjectMembersIndexRoute
   '/$project/my-issues/': typeof ProjectMyIssuesIndexRoute
   '/$project/settings/': typeof ProjectSettingsIndexRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/$project/archived'
     | '/$project/drafts'
     | '/$project/inbox'
+    | '/$project/issues'
     | '/$project/members'
     | '/$project/my-issues'
     | '/$project/settings'
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/$project/archived'
     | '/$project/drafts'
     | '/$project/inbox'
+    | '/$project/issues'
     | '/$project/members'
     | '/$project/my-issues'
     | '/$project/settings'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/$project/archived/'
     | '/$project/drafts/'
     | '/$project/inbox/'
+    | '/$project/issues/'
     | '/$project/members/'
     | '/$project/my-issues/'
     | '/$project/settings/'
@@ -202,6 +214,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectMembersIndexRouteImport
       parentRoute: typeof ProjectRouteRoute
     }
+    '/$project/issues/': {
+      id: '/$project/issues/'
+      path: '/issues'
+      fullPath: '/$project/issues'
+      preLoaderRoute: typeof ProjectIssuesIndexRouteImport
+      parentRoute: typeof ProjectRouteRoute
+    }
     '/$project/inbox/': {
       id: '/$project/inbox/'
       path: '/inbox'
@@ -231,6 +250,7 @@ interface ProjectRouteRouteChildren {
   ProjectArchivedIndexRoute: typeof ProjectArchivedIndexRoute
   ProjectDraftsIndexRoute: typeof ProjectDraftsIndexRoute
   ProjectInboxIndexRoute: typeof ProjectInboxIndexRoute
+  ProjectIssuesIndexRoute: typeof ProjectIssuesIndexRoute
   ProjectMembersIndexRoute: typeof ProjectMembersIndexRoute
   ProjectMyIssuesIndexRoute: typeof ProjectMyIssuesIndexRoute
   ProjectSettingsIndexRoute: typeof ProjectSettingsIndexRoute
@@ -241,6 +261,7 @@ const ProjectRouteRouteChildren: ProjectRouteRouteChildren = {
   ProjectArchivedIndexRoute: ProjectArchivedIndexRoute,
   ProjectDraftsIndexRoute: ProjectDraftsIndexRoute,
   ProjectInboxIndexRoute: ProjectInboxIndexRoute,
+  ProjectIssuesIndexRoute: ProjectIssuesIndexRoute,
   ProjectMembersIndexRoute: ProjectMembersIndexRoute,
   ProjectMyIssuesIndexRoute: ProjectMyIssuesIndexRoute,
   ProjectSettingsIndexRoute: ProjectSettingsIndexRoute,

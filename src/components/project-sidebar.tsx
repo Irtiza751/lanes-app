@@ -90,11 +90,11 @@ export function ProjectSidebar() {
         <SidebarGroup>
           <Collapsible defaultOpen>
             <SidebarMenuItem>
-              <CollapsibleTrigger className="w-full group">
-                <SidebarMenuButton className="text-xs py-0 h-7.5">
-                  <span>Project</span>
-                  <span className="inline-block w-0 h-0 border-l-5 border-l-transparent border-r-5 border-r-transparent border-t-5 border-t-muted-foreground" />
-                </SidebarMenuButton>
+              <CollapsibleTrigger className="group text-xs py-0 h-7.5 space-x-1">
+                {/* <SidebarMenuButton className="text-xs py-0 h-7.5"> */}
+                <span>Project</span>
+                <span className="inline-block w-0 h-0 border-l-5 border-l-transparent border-r-5 border-r-transparent border-t-5 border-t-muted-foreground" />
+                {/* </SidebarMenuButton> */}
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuButton>
