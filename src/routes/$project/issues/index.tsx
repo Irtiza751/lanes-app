@@ -15,13 +15,13 @@ const lanes = [
     status: 'backlog',
     title: 'Backlog',
     iconValue: 13,
-    iconColor: 'white',
+    iconColor: '#8a8a8a',
   },
   {
     status: 'todo',
     title: 'Todos',
-    iconColor: 'green',
-    iconValue: 10,
+    iconColor: '#cccccc',
+    iconValue: 13,
   },
   {
     status: 'in-progress',
@@ -58,7 +58,7 @@ const issues = [
       name: 'high',
     },
     labels: [
-      { id: 'ui', name: 'UI', color: 'blue' },
+      { id: 'ui', name: 'UI', color: 'aquamarine' },
       { id: 'planning', name: 'Planning', color: 'gray' },
     ],
   },
@@ -91,8 +91,8 @@ const issues = [
       name: 'low',
     },
     labels: [
-      { id: 'ui', name: 'UI', color: 'blue' },
-      { id: 'component', name: 'Component', color: 'purple' },
+      { id: 'ui', name: 'UI', color: 'aquamarine' },
+      { id: 'component', name: 'Component', color: 'indianred' },
     ],
   },
   {
@@ -183,7 +183,7 @@ const issues = [
       id: '3',
       name: 'low',
     },
-    labels: [{ id: 'ui', name: 'UI', color: 'blue' }],
+    labels: [{ id: 'ui', name: 'UI', color: 'aquamarine' }],
   },
   {
     id: '10',

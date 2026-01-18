@@ -1,5 +1,11 @@
 import { Icon } from '@/icons'
 import { Button } from './ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { UserCircleIcon } from '@heroicons/react/24/solid'
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
+import { useSidebar } from './ui/sidebar'
+import { cn } from '@/lib/utils'
+import { Badge } from './ui/badge'
 
 type KanbanProps = {
   lanes: {
@@ -39,12 +45,19 @@ export type Label = {
 }
 
 export function KanbanBoard({ lanes, issues }: KanbanProps) {
+  const { open } = useSidebar()
+
   return (
-    <div className="overflow-auto flex gap-5 p-2 max-w-[calc(100vw-322px)]">
+    <div
+      className={cn('overflow-auto flex gap-5 p-2 transition-width', {
+        'max-w-[calc(100vw-322px)]': open,
+        'max-w-[calc(100vw-0px)]': !open,
+      })}
+    >
       {lanes.map((lane) => (
         <div
           key={lane.status}
-          className="bg-lanes rounded-sm min-h-[calc(100svh-120px)] p-2 basis-xs shrink-0 space-y-2"
+          className="bg-lanes rounded-sm min-h-[calc(100svh-120px)] p-2 basis-88 shrink-0 space-y-2"
         >
           <LaneHeader
             title={lane.title}
@@ -55,7 +68,12 @@ export function KanbanBoard({ lanes, issues }: KanbanProps) {
           {issues
             .filter((issue) => issue.status === lane.status)
             .map((issue) => (
-              <Ticket key={issue.id} issue={issue} />
+              <Ticket
+                value={lane.iconValue}
+                key={issue.id}
+                issue={issue}
+                color={lane.iconColor}
+              />
             ))}
         </div>
       ))}
@@ -75,14 +93,14 @@ function LaneHeader({
   iconColor?: string
 }) {
   return (
-    <div className="text-slight-muted text-[13.3px] flex items-center justify-between">
+    <div className="text-slight-muted text-xs flex items-center justify-between">
       <div className="flex items-center gap-2">
         <Icon
           name="progress"
           value={iconValue}
           color={iconColor}
-          dashed={iconValue === 13}
-          size={14}
+          dashed={title === 'Backlog'}
+          size={13}
         />
         <span>{title}</span>
         <span className="text-muted-foreground">{count}</span>
@@ -93,14 +111,58 @@ function LaneHeader({
 
 type TicketProps = {
   issue: Issue
+  value: number
+  color?: string
 }
-function Ticket({ issue }: TicketProps) {
+function Ticket({ issue, value, color }: TicketProps) {
   return (
-    <div className="bg-accent px-3 py-2 shadow-lg border border-secondary rounded-md">
-      <p className="text-[13px] font-semibold">{issue.title}</p>
-      <Button size="xs" variant="outline">
-        {issue.status}
-      </Button>
+    <div className="bg-ticket p-2 shadow-lg border border-secondary rounded-md">
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-muted-foreground">{issue.key}</span>
+        <Avatar className="size-5">
+          <AvatarImage
+            src={issue.assignee.image}
+            alt={issue.assignee.name}
+            title={issue.assignee.name}
+            className="size-5"
+          />
+          <AvatarFallback className="size-5">
+            <UserCircleIcon />
+          </AvatarFallback>
+        </Avatar>
+      </div>
+      <div className="flex items-center gap-2 mt-1 mb-2 text-slight-muted">
+        <Icon
+          name="progress"
+          value={value}
+          dashed={issue.status === 'backlog'}
+          color={color}
+          size={13}
+        />
+        <p className="text-xs font-semibold">{issue.title}</p>
+      </div>
+      <div className="flex items-center flex-wrap gap-1">
+        <Button
+          size="icon-xs"
+          variant="outline"
+          className="size-5 rounded-sm bg-none"
+        >
+          <EllipsisHorizontalIcon />
+        </Button>
+        {issue.labels.map((label) => (
+          <Badge
+            key={label.id}
+            variant={'outline'}
+            className="rounded-sm text-[10px]"
+          >
+            <span
+              className="size-2 rounded-full"
+              style={{ backgroundColor: label.color }}
+            />
+            {label.name}
+          </Badge>
+        ))}
+      </div>
     </div>
   )
 }
