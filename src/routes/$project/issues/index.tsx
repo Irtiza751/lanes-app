@@ -9,6 +9,10 @@ import { FilterMailIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { KanbanBoard } from '@/components/kanban-board'
+import { useState } from 'react'
+import { DragEndEvent } from '@dnd-kit/core'
+import { Lane } from '@/components/types'
+import { ClientOnly } from '@tanstack/react-router'
 
 const lanes = [
   {
@@ -43,7 +47,7 @@ const lanes = [
   },
 ]
 
-const issues = [
+const ISSUES = [
   {
     id: '1',
     title: 'Design sidebar layout',
@@ -207,6 +211,23 @@ export const Route = createFileRoute('/$project/issues/')({
 })
 
 function RouteComponent() {
+  const [issues, setIssues] = useState(ISSUES)
+
+  const onDragEnd = (event: DragEndEvent) => {
+    console.log(event)
+    const { over, active } = event
+    if (!over) return
+    // const todo = active.data.current as Task;
+    const lane = over.data.current as Lane
+    // const issueIndex = issues.findIndex(issue => issue.id === active.id);
+    setIssues((prevIssues) =>
+      prevIssues.map((issue) => ({
+        ...issue,
+        ...(issue.id === active.id ? { status: lane.status } : {}),
+      })),
+    )
+  }
+
   return (
     <div>
       <header className="border-b flex items-center px-3 gap-2 py-1">
@@ -242,7 +263,9 @@ function RouteComponent() {
         </Button>
       </header>
       {/* board */}
-      <KanbanBoard lanes={lanes} issues={issues} />
+      <ClientOnly>
+        <KanbanBoard lanes={lanes} issues={issues} onDragEnd={onDragEnd} />
+      </ClientOnly>
     </div>
   )
 }

@@ -6,76 +6,76 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline'
 import { useSidebar } from './ui/sidebar'
 import { cn } from '@/lib/utils'
 import { Badge } from './ui/badge'
+import {
+  DndContext,
+  DragEndEvent,
+  useDraggable,
+  useDroppable,
+} from '@dnd-kit/core'
+import { Issue, Lane } from './types'
+import { CSS } from '@dnd-kit/utilities'
 
 type KanbanProps = {
-  lanes: {
-    status: string
-    title: string
-    show?: boolean
-    iconValue: number
-    iconColor?: string
-  }[]
+  lanes: Lane[]
+  issues: Issue[]
+  onDragEnd?: (event: DragEndEvent) => void
+}
+
+export function KanbanBoard({
+  lanes,
+  issues,
+  onDragEnd = () => {},
+}: KanbanProps) {
+  const { open } = useSidebar()
+
+  console.log(issues)
+
+  return (
+    <DndContext onDragEnd={onDragEnd}>
+      <div
+        className={cn('overflow-auto flex gap-5 p-2 transition-width', {
+          'max-w-[calc(100vw-322px)]': open,
+          'max-w-[calc(100vw-0px)]': !open,
+        })}
+      >
+        {lanes.map((lane) => (
+          <Column
+            key={lane.status}
+            lane={lane}
+            issues={issues?.filter((issue) => issue.status === lane.status)}
+          />
+        ))}
+      </div>
+    </DndContext>
+  )
+}
+
+type ColumnProps = {
+  lane: Lane
   issues: Issue[]
 }
 
-export type Issue = {
-  id: string
-  title: string
-  key: string
-  status: string
-  assignee: Assignee
-  priority: Priority
-  labels: Label[]
-}
-
-export type Assignee = {
-  name: string
-  image: any
-}
-
-export type Priority = {
-  id: string
-  name: string
-}
-
-export type Label = {
-  id: string
-  name: string
-  color: string
-}
-
-export function KanbanBoard({ lanes, issues }: KanbanProps) {
-  const { open } = useSidebar()
+function Column({ lane, issues }: ColumnProps) {
+  const { setNodeRef } = useDroppable({ id: lane.status, data: lane })
 
   return (
     <div
-      className={cn('overflow-auto flex gap-5 p-2 transition-width', {
-        'max-w-[calc(100vw-322px)]': open,
-        'max-w-[calc(100vw-0px)]': !open,
-      })}
+      ref={setNodeRef}
+      className="bg-lanes rounded-sm min-h-[calc(100svh-120px)] p-2 basis-88 shrink-0 space-y-2"
     >
-      {lanes.map((lane) => (
-        <div
-          key={lane.status}
-          className="bg-lanes rounded-sm min-h-[calc(100svh-120px)] p-2 basis-88 shrink-0 space-y-2"
-        >
-          <LaneHeader
-            title={lane.title}
-            count={2}
-            iconValue={lane.iconValue}
-            iconColor={lane.iconColor}
-          />
-          {issues
-            .filter((issue) => issue.status === lane.status)
-            .map((issue) => (
-              <Ticket
-                value={lane.iconValue}
-                key={issue.id}
-                issue={issue}
-                color={lane.iconColor}
-              />
-            ))}
-        </div>
+      <LaneHeader
+        title={lane.title}
+        count={2}
+        iconValue={lane.iconValue}
+        iconColor={lane.iconColor}
+      />
+      {issues.map((issue) => (
+        <Ticket
+          value={lane.iconValue}
+          key={issue.id}
+          issue={issue}
+          color={lane.iconColor}
+        />
       ))}
     </div>
   )
@@ -115,8 +115,23 @@ type TicketProps = {
   color?: string
 }
 function Ticket({ issue, value, color }: TicketProps) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: issue.id,
+    data: issue,
+  })
+
+  const styles = {
+    transform: CSS.Translate.toString(transform),
+  }
+
   return (
-    <div className="bg-ticket p-2 shadow-lg border border-secondary rounded-md">
+    <div
+      {...attributes}
+      {...listeners}
+      style={styles}
+      ref={setNodeRef}
+      className="bg-ticket p-2 shadow-lg border border-secondary rounded-md"
+    >
       <div className="flex items-center justify-between">
         <span className="text-xs text-muted-foreground">{issue.key}</span>
         <Avatar className="size-5">
