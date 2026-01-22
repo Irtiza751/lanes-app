@@ -43,7 +43,9 @@
 .dark {
   --background: oklch(17.394% 0.00411 285.902);
   --foreground: oklch(0.985 0.002 247.839);
+  --slight-muted: oklch(90.67% 0.0001 271.152);
   --card: oklch(13.979% 0.00002 271.152);
+  --lanes: oklch(16.376% 0.00002 271.152);
   --card-foreground: oklch(0.985 0.002 247.839);
   --popover: oklch(13.979% 0.00002 271.152);
   --popover-foreground: oklch(0.985 0.002 247.839);
@@ -72,6 +74,7 @@
   --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  --ticket: oklch(22.046% 0.01165 285.383);
 }
 
 @theme inline {
@@ -115,6 +118,9 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
   --ease-in-expo: cubic-bezier(1, 0, 0, 1);
+  --color-lanes: var(--lanes);
+  --color-ticket: var(--ticket);
+  --color-slight-muted: var(--slight-muted);
 }
 
 @layer base {
