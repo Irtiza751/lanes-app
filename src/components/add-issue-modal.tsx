@@ -1,9 +1,8 @@
+import React, { useEffect } from 'react'
 import { Button } from './ui/button'
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -11,43 +10,65 @@ import {
 } from './ui/dialog'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
+import { Textarea } from './ui/textarea'
+import { db } from '@/db'
+import { useTaskService } from '@/services/use-task.service'
 
 type AddIssueModalProps = {
   children: React.ReactNode
 }
 
 export function AddIssueModal({ children }: AddIssueModalProps) {
+  const { createTask } = useTaskService()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle task creation logic here
+    console.log('Task created')
+    const data = new FormData(e.target as HTMLFormElement)
+    const title = data.get('title') as string
+    const description = data.get('description') as string | null
+    console.log({ title, description })
+    const id = await createTask({ title, description })
+    console.log('Created task with id:', id)
+  }
+
+  const fetchTasks = async () => {
+    const tasks = await db.tasks.toArray()
+    console.log('All tasks:', tasks)
+  }
+
+  useEffect(() => {
+    fetchTasks()
+  }, [])
+
   return (
     <Dialog>
-      <form>
-        <DialogTrigger>{children}</DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4">
+      <DialogTrigger>{children}</DialogTrigger>
+      <DialogContent className="w-full sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>New issue</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit}>
+          <div className="grid gap-4 mb-4">
             <div className="grid gap-3">
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+              <Label htmlFor="title">Title</Label>
+              <Input id="title" name="title" placeholder="Issue title" />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                name="description"
+                placeholder="Issue description"
+              />
             </div>
           </div>
           <DialogFooter>
-            <DialogClose>
-              Cancel
-              {/* <Button variant="outline"></Button> */}
-            </DialogClose>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Create issue</Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   )
 }
