@@ -12,7 +12,7 @@ import {
   useDraggable,
   useDroppable,
 } from '@dnd-kit/core'
-import { Issue, Lane } from './types'
+import { Issue, Lane } from '../types'
 import { CSS } from '@dnd-kit/utilities'
 
 type KanbanProps = {

@@ -9,10 +9,11 @@ import { FilterMailIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { KanbanBoard } from '@/components/kanban-board'
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { DragEndEvent } from '@dnd-kit/core'
-import { Lane } from '@/components/types'
+import { Lane } from '@/types'
 import { ClientOnly } from '@tanstack/react-router'
+import { useIssue } from '@/stores/issue-store'
 
 const lanes = [
   {
@@ -211,7 +212,12 @@ export const Route = createFileRoute('/$project/issues/')({
 })
 
 function RouteComponent() {
-  const [issues, setIssues] = useState(ISSUES)
+  // const [issues, setIssues] = useState(ISSUES)
+  const { issues, setIssues } = useIssue()
+
+  useEffect(() => {
+    setIssues(ISSUES)
+  }, [])
 
   const onDragEnd = (event: DragEndEvent) => {
     console.log(event)
@@ -220,8 +226,8 @@ function RouteComponent() {
     // const todo = active.data.current as Task;
     const lane = over.data.current as Lane
     // const issueIndex = issues.findIndex(issue => issue.id === active.id);
-    setIssues((prevIssues) =>
-      prevIssues.map((issue) => ({
+    setIssues(
+      issues.map((issue) => ({
         ...issue,
         ...(issue.id === active.id ? { status: lane.status } : {}),
       })),

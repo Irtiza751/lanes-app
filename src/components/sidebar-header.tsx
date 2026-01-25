@@ -18,6 +18,7 @@ import {
   MagnifyingGlassIcon,
   PencilSquareIcon,
 } from '@heroicons/react/24/solid'
+import { AddIssueModal } from './add-issue-modal'
 
 export function SidebarHeader() {
   return (
@@ -29,9 +30,11 @@ export function SidebarHeader() {
         <Button variant="ghost" size="icon-sm">
           <MagnifyingGlassIcon />
         </Button>
-        <Button variant="secondary" size="icon-sm">
-          <PencilSquareIcon />
-        </Button>
+        <AddIssueModal>
+          <Button variant="secondary" size="icon-sm">
+            <PencilSquareIcon />
+          </Button>
+        </AddIssueModal>
       </div>
     </ShadCNSidebarHeader>
   )
