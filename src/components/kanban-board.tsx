@@ -130,7 +130,7 @@ function Ticket({ issue, value, color }: TicketProps) {
       {...listeners}
       style={styles}
       ref={setNodeRef}
-      className="dark:bg-ticket bg-background p-2 shadow-xs border border-secondary rounded-md"
+      className="dark:bg-ticket bg-background p-2 shadow-xs border border-ticket-accent rounded-md"
     >
       <div className="flex items-center justify-between">
         <span className="text-xs text-muted-foreground">{issue.key}</span>
