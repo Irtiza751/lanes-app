@@ -19,8 +19,10 @@ import {
   PencilSquareIcon,
 } from '@heroicons/react/24/solid'
 import { AddIssueModal } from './add-issue-modal'
+import { useState } from 'react'
 
 export function SidebarHeader() {
+  const [openIssueModal, setOpenIssueModal] = useState(false)
   return (
     <ShadCNSidebarHeader className="flex flex-row items-center">
       <div className="flex-1">
@@ -30,8 +32,12 @@ export function SidebarHeader() {
         <Button variant="ghost" size="icon-sm">
           <MagnifyingGlassIcon />
         </Button>
-        <AddIssueModal>
-          <Button variant="secondary" size="icon-sm">
+        <AddIssueModal open={openIssueModal} onOpenChange={setOpenIssueModal}>
+          <Button
+            variant="secondary"
+            size="icon-sm"
+            onClick={() => setOpenIssueModal(true)}
+          >
             <PencilSquareIcon />
           </Button>
         </AddIssueModal>

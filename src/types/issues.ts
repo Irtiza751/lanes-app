@@ -1,14 +1,18 @@
 export type Issue = {
   id: string
   title: string
+  description: string
   key: string
-  status: string
-  assignee: Assignee
-  priority: Priority
-  labels: Label[]
+  status?: string
+  assignee?: Assignee
+  priority?: Priority
+  labels?: Label[]
+  createdAt: Date
+  updatedAt?: Date
 }
 
 export type Assignee = {
+  id: string
   name: string
   image: any
 }

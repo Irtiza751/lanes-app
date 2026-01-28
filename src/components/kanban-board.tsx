@@ -130,15 +130,15 @@ function Ticket({ issue, value, color }: TicketProps) {
       {...listeners}
       style={styles}
       ref={setNodeRef}
-      className="dark:bg-ticket bg-background p-2 shadow-xs border border-secondary rounded-md"
+      className="dark:bg-ticket bg-background p-2 shadow-xs border border-ticket-accent rounded-md"
     >
       <div className="flex items-center justify-between">
         <span className="text-xs text-muted-foreground">{issue.key}</span>
         <Avatar className="size-5">
           <AvatarImage
-            src={issue.assignee.image}
-            alt={issue.assignee.name}
-            title={issue.assignee.name}
+            src={issue.assignee?.image}
+            alt={issue.assignee?.name}
+            title={issue.assignee?.name}
             className="size-5"
           />
           <AvatarFallback className="size-5">
@@ -164,7 +164,7 @@ function Ticket({ issue, value, color }: TicketProps) {
         >
           <EllipsisHorizontalIcon />
         </Button>
-        {issue.labels.map((label) => (
+        {issue.labels?.map((label) => (
           <Badge
             key={label.id}
             variant={'outline'}

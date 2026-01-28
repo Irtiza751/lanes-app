@@ -74,7 +74,8 @@
   --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
-  --ticket: oklch(22.046% 0.01165 285.383);
+  --ticket: oklch(18.22% 0.00002 271.152);
+  --ticket-accent: oklch(20.463% 0.00002 271.152);
 }
 
 @theme inline {
@@ -121,6 +122,7 @@
   --color-lanes: var(--lanes);
   --color-ticket: var(--ticket);
   --color-slight-muted: var(--slight-muted);
+  --color-ticket-accent: var(--ticket-accent);
 }
 
 @layer base {
