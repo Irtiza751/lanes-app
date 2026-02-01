@@ -14,6 +14,7 @@ import { DragEndEvent } from '@dnd-kit/core'
 import { Lane } from '@/types'
 import { ClientOnly } from '@tanstack/react-router'
 import { useIssue } from '@/stores/issue-store'
+import { arrayMove } from '@dnd-kit/sortable'
 
 const lanes = [
   {
@@ -214,24 +215,62 @@ export const Route = createFileRoute('/$project/issues/')({
 function RouteComponent() {
   // const [issues, setIssues] = useState(ISSUES)
   const { issues, setIssues } = useIssue()
-
   useEffect(() => {
     setIssues(ISSUES)
   }, [])
 
   const onDragEnd = (event: DragEndEvent) => {
-    console.log(event)
     const { over, active } = event
     if (!over) return
-    // const todo = active.data.current as Task;
-    const lane = over.data.current as Lane
-    // const issueIndex = issues.findIndex(issue => issue.id === active.id);
-    setIssues(
-      issues.map((issue) => ({
-        ...issue,
-        ...(issue.id === active.id ? { status: lane.status } : {}),
-      })),
-    )
+
+    const activeId = active.id as string
+    const overId = over.id as string
+
+    // Find the active issue
+    const activeIssue = issues.find((issue) => issue.id === activeId)
+    if (!activeIssue) return
+
+    // Check if we're dropping on a lane or an issue
+    const isOverLane = lanes.some((lane) => lane.status === overId)
+
+    if (isOverLane) {
+      // Moving to a different column
+      const newStatus = overId
+      if (activeIssue.status !== newStatus) {
+        setIssues(
+          issues.map((issue) =>
+            issue.id === activeId ? { ...issue, status: newStatus } : issue,
+          ),
+        )
+      }
+    } else {
+      // Reordering within the same column or moving to a position in another column
+      const overIssue = issues.find((issue) => issue.id === overId)
+      if (!overIssue) return
+
+      const activeIndex = issues.findIndex((issue) => issue.id === activeId)
+      const overIndex = issues.findIndex((issue) => issue.id === overId)
+
+      if (activeIssue.status === overIssue.status) {
+        // Same column - just reorder
+        const reorderedIssues = arrayMove(issues, activeIndex, overIndex)
+        setIssues(reorderedIssues)
+      } else {
+        // Different column - change status and reorder
+        const updatedIssues = issues.map((issue) =>
+          issue.id === activeId
+            ? { ...issue, status: overIssue.status }
+            : issue,
+        )
+        const newActiveIndex = updatedIssues.findIndex(
+          (issue) => issue.id === activeId,
+        )
+        const newOverIndex = updatedIssues.findIndex(
+          (issue) => issue.id === overId,
+        )
+        setIssues(arrayMove(updatedIssues, newActiveIndex, newOverIndex))
+      }
+    }
   }
 
   return (
