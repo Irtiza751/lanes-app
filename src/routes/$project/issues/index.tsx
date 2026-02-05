@@ -11,10 +11,10 @@ import { createFileRoute } from '@tanstack/react-router'
 import { KanbanBoard } from '@/components/kanban-board'
 import { useEffect } from 'react'
 import { DragEndEvent } from '@dnd-kit/core'
-import { Lane } from '@/types'
 import { ClientOnly } from '@tanstack/react-router'
 import { useIssue } from '@/stores/issue-store'
 import { arrayMove } from '@dnd-kit/sortable'
+import { Issue } from '@/types'
 
 const lanes = [
   {
@@ -49,13 +49,15 @@ const lanes = [
   },
 ]
 
-const ISSUES = [
+const ISSUES: Issue[] = [
   {
     id: '1',
     title: 'Design sidebar layout',
+    description: 'Example issue description',
     key: 'TES-1',
     status: 'backlog',
     assignee: {
+      id: '1',
       name: 'Muhammad Irtiza',
       image: null,
     },
@@ -67,13 +69,17 @@ const ISSUES = [
       { id: 'ui', name: 'UI', color: 'aquamarine' },
       { id: 'planning', name: 'Planning', color: 'gray' },
     ],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '2',
     title: 'Setup project routing',
+    description: 'Example issue description',
     key: 'TES-2',
     status: 'todo',
     assignee: {
+      id: '1',
       name: 'Ali Raza',
       image: null,
     },
@@ -82,13 +88,17 @@ const ISSUES = [
       name: 'medium',
     },
     labels: [{ id: 'frontend', name: 'Frontend', color: 'green' }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '3',
     title: 'Create reusable button component',
+    description: 'Example issue description',
     key: 'TES-3',
     status: 'backlog',
     assignee: {
+      id: '10',
       name: 'Sara Khan',
       image: null,
     },
@@ -100,13 +110,17 @@ const ISSUES = [
       { id: 'ui', name: 'UI', color: 'aquamarine' },
       { id: 'component', name: 'Component', color: 'indianred' },
     ],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '4',
     title: 'Implement Kanban board drag and drop',
+    description: 'Example issue description',
     key: 'TES-4',
     status: 'todo',
     assignee: {
+      id: '10',
       name: 'Muhammad Irtiza',
       image: null,
     },
@@ -115,13 +129,17 @@ const ISSUES = [
       name: 'high',
     },
     labels: [{ id: 'feature', name: 'Feature', color: 'teal' }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '5',
     title: 'Fix sidebar collapse bug',
+    description: 'Example issue description',
     key: 'TES-5',
     status: 'in-progress',
     assignee: {
+      id: '10',
       name: 'Ali Raza',
       image: null,
     },
@@ -130,13 +148,17 @@ const ISSUES = [
       name: 'high',
     },
     labels: [{ id: 'bug', name: 'Bug', color: 'red' }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '6',
     title: 'Add issue priority indicator',
+    description: 'Example issue description',
     key: 'TES-6',
     status: 'code-review',
     assignee: {
+      id: '10',
       name: 'Sara Khan',
       image: null,
     },
@@ -145,13 +167,17 @@ const ISSUES = [
       name: 'medium',
     },
     labels: [{ id: 'enhancement', name: 'Enhancement', color: 'orange' }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '7',
     title: 'Refactor issue card component',
+    description: 'Example issue description',
     key: 'TES-7',
     status: 'code-review',
     assignee: {
+      id: '10',
       name: 'Muhammad Irtiza',
       image: null,
     },
@@ -160,13 +186,17 @@ const ISSUES = [
       name: 'low',
     },
     labels: [{ id: 'refactor', name: 'Refactor', color: 'yellow' }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '8',
     title: 'Persist board state in IndexedDB',
+    description: 'Example issue description',
     key: 'TES-8',
     status: 'done',
     assignee: {
+      id: '10',
       name: 'Ali Raza',
       image: null,
     },
@@ -175,13 +205,17 @@ const ISSUES = [
       name: 'medium',
     },
     labels: [{ id: 'storage', name: 'Storage', color: 'brown' }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '9',
     title: 'Add empty state for lanes',
+    description: 'Example issue description',
     key: 'TES-9',
     status: 'done',
     assignee: {
+      id: '10',
       name: 'Sara Khan',
       image: null,
     },
@@ -190,13 +224,17 @@ const ISSUES = [
       name: 'low',
     },
     labels: [{ id: 'ui', name: 'UI', color: 'aquamarine' }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: '10',
     title: 'Write basic board documentation',
+    description: 'Example issue description',
     key: 'TES-10',
     status: 'backlog',
     assignee: {
+      id: '10',
       name: 'Muhammad Irtiza',
       image: null,
     },
@@ -205,6 +243,8 @@ const ISSUES = [
       name: 'low',
     },
     labels: [{ id: 'docs', name: 'Documentation', color: 'pink' }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
 ]
 
