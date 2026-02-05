@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from './ui/dialog'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
