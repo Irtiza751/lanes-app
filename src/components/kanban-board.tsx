@@ -187,7 +187,12 @@ function Ticket({ issue, value, color }: TicketProps) {
       {...listeners}
       style={styles}
       ref={setNodeRef}
-      className="dark:bg-ticket bg-background p-2 shadow-xs border border-ticket-accent rounded-md"
+      className={cn(
+        'dark:bg-ticket bg-background p-2 shadow-xs border border-ticket-accent rounded-md cursor-default',
+        {
+          'cursor-grabbing': isDragging,
+        },
+      )}
     >
       <TicketContent issue={issue} value={value} color={color} />
     </div>
